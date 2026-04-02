@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>インストール・初期設定 - Kashiwazaki SEO Rich Preview Manager マニュアル</title>
+    <link rel="stylesheet" href="css/style.css?v=1">
+</head>
+<body>
+<button class="hamburger-btn" aria-label="メニュー">&#9776;</button>
+
+<nav class="sidebar">
+    <div class="sidebar-header">
+        <h2 style="color:#fff;">Rich Preview Manager</h2>
+        <span class="version">v2.0.0</span>
+        <img src="images/main-visual.png" alt="" style="width:100%;border-radius:4px;margin-top:8px;">
+    </div>
+    <ul>
+        <li><a href="index.html">概要</a></li>
+        <li class="active"><a href="setup.html">インストール・初期設定</a></li>
+        <li><a href="settings-metabox.html">設定・メタボックス</a></li>
+        <li><a href="troubleshooting.html">トラブルシューティング</a></li>
+    </ul>
+</nav>
+
+<main class="content">
+    <h1>インストール・初期設定 マニュアル</h1>
+    <p class="lead">Kashiwazaki SEO Rich Preview Manager のインストール方法と、リッチプレビュー出力に必要な基本設定を説明します。</p>
+
+    <h2>インストール手順</h2>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <div class="step-body">
+            <p>WordPress管理画面から <strong>プラグイン &gt; 新規追加</strong> に移動し、「Kashiwazaki SEO Rich Preview Manager」を検索します。または、プラグインのZIPファイルを <strong>プラグイン &gt; 新規追加 &gt; プラグインのアップロード</strong> からアップロードします。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <div class="step-body">
+            <p>「今すぐインストール」をクリックし、インストール完了後「有効化」をクリックします。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">3</span>
+        <div class="step-body">
+            <p>管理画面の左メニューに「Rich Preview Manager」が追加されます。クリックして設定画面を開きます。</p>
+        </div>
+    </div>
+
+    <figure class="screenshot">
+        <img src="images/screenshots/00-menu-location.png" alt="管理画面メニューの位置" class="lightbox-trigger">
+        <figcaption>管理画面の左メニューにプラグインが追加されます</figcaption>
+    </figure>
+
+    <div class="callout callout-tip">
+        <div class="callout-title">ヒント</div>
+        <p>有効化直後はすべての出力タイプが無効になっています。以下の初期設定で必要な出力タイプを有効にしてください。</p>
+    </div>
+
+    <h2>初期設定</h2>
+
+    <h3>出力タイプの有効化</h3>
+    <p>設定画面で、使用する出力タイプを個別に有効化します。5種類の出力タイプからサイトに必要なものを選択してください。</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width:35%;">出力タイプ</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>OGP</td>
+                <td>Open Graph Protocol メタタグ。Facebook、LINEなどSNSでのシェア表示を制御します。</td>
+            </tr>
+            <tr>
+                <td>Twitter Card</td>
+                <td>Twitter Card メタタグ。X（旧Twitter）でのリンクカード表示を制御します。</td>
+            </tr>
+            <tr>
+                <td>Meta Thumbnail</td>
+                <td>Meta Thumbnail タグ。検索結果でのサムネイル画像表示を制御します。</td>
+            </tr>
+            <tr>
+                <td>PageMap</td>
+                <td>PageMap DataObject。Google AI Overviewsでの画像・メタデータ取得に対応します。</td>
+            </tr>
+            <tr>
+                <td>robots max-image-preview</td>
+                <td>robots メタタグ。検索エンジンによる画像プレビューの最大サイズを指定します。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <div class="step-body">
+            <p>設定画面の「出力タイプ」セクションで、有効にしたいタイプのチェックボックスをオンにします。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <div class="step-body">
+            <p>「設定を保存」ボタンをクリックして変更を適用します。</p>
+        </div>
+    </div>
+
+    <h3>サイト名の設定</h3>
+    <p><code>og:site_name</code> に使用されるサイト名を設定します。空欄の場合はWordPressの「サイトのタイトル」が使用されます。</p>
+
+    <h3>デフォルト og:type の設定</h3>
+    <p>トップページ以外の投稿で使用されるデフォルトの <code>og:type</code> を設定します。一般的には「article」を選択します。トップページは自動的に「website」が使用されます。</p>
+
+    <h3>デフォルト Twitter Card タイプの設定</h3>
+    <p>デフォルトのTwitter Cardタイプを選択します。</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width:35%;">カードタイプ</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>summary</td>
+                <td>小さなサムネイル画像付きのカード。テキスト中心のコンテンツに適しています。</td>
+            </tr>
+            <tr>
+                <td>summary_large_image</td>
+                <td>大きな画像付きのカード。写真やビジュアルコンテンツに最適です。CTR向上に効果的です。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Facebook App ID の設定</h2>
+
+    <p>Facebook App IDを設定すると、<code>fb:app_id</code> メタタグが出力されます。Facebook Insightsでシェア数やエンゲージメントを確認するために必要です。</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width:35%;">項目</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Facebook App ID</td>
+                <td>Facebook for Developersで取得したアプリケーションID。数字のみで構成されます。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="callout callout-tip">
+        <div class="callout-title">ヒント</div>
+        <p>Facebook App IDは <a href="https://developers.facebook.com/" target="_blank" rel="noopener">Facebook for Developers</a> から取得できます。設定は任意ですが、Facebook Insightsを利用する場合は必須です。</p>
+    </div>
+
+    <h2>Twitterユーザー名の設定</h2>
+
+    <p>Twitterアカウントのユーザー名（@付き）を設定すると、<code>twitter:site</code> メタタグが出力されます。</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width:35%;">項目</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Twitterユーザー名</td>
+                <td>@から始まるTwitterアカウント名（例: @example）。twitter:site タグに使用されます。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>デフォルト画像の設定</h2>
+
+    <p>投稿にアイキャッチ画像が設定されていない場合に使用されるデフォルトの画像を設定します。OGP、Twitter Card、Meta Thumbnail、PageMap のすべてで共通のフォールバック画像として使用されます。</p>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <div class="step-body">
+            <p>設定画面の「デフォルト画像」セクションで「画像を選択」ボタンをクリックします。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <div class="step-body">
+            <p>メディアライブラリが開くので、使用する画像を選択します。推奨サイズは <strong>1200 x 630px</strong> です。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">3</span>
+        <div class="step-body">
+            <p>「設定を保存」ボタンをクリックして変更を適用します。</p>
+        </div>
+    </div>
+
+    <div class="callout callout-note">
+        <div class="callout-title">補足</div>
+        <p>OGP画像の推奨サイズは1200 x 630pxです。この比率（1.91:1）はFacebook、X、LINEなど主要なSNSで最適に表示されます。</p>
+    </div>
+
+    <h2>投稿タイプの選択</h2>
+
+    <p>メタタグを出力する投稿タイプを選択します。デフォルトでは「投稿」と「固定ページ」が対象です。カスタム投稿タイプが登録されている場合は、それらも選択肢に表示されます。</p>
+
+    <div class="callout callout-tip">
+        <div class="callout-title">ヒント</div>
+        <p>不要な投稿タイプでメタタグが出力されないよう、対象を適切に絞り込むことを推奨します。</p>
+    </div>
+
+    <h2>旧プラグインからの移行</h2>
+
+    <div class="callout callout-warning">
+        <div class="callout-title">注意</div>
+        <p>Kashiwazaki SEO OGP Manager（v1.x）をお使いの場合、本プラグイン（v2.0.0）にアップグレードすることで設定とメタデータを自動移行できます。移行前に必ずデータベースのバックアップを取得してください。</p>
+    </div>
+
+    <p>旧プラグイン（kashiwazaki-seo-ogp-manager v1.x）からの移行手順は以下の通りです。</p>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <div class="step-body">
+            <p>旧プラグインを無効化します（削除はしないでください）。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <div class="step-body">
+            <p>本プラグイン（Rich Preview Manager）をインストール・有効化します。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">3</span>
+        <div class="step-body">
+            <p>設定画面に移行通知が表示されます。「マイグレーションを実行」ボタンをクリックすると、旧プラグインの設定（ksom_options）と投稿メタデータが自動的に変換されます。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">4</span>
+        <div class="step-body">
+            <p>移行完了後、出力内容を確認し、問題がなければ旧プラグインを削除します。</p>
+        </div>
+    </div>
+
+    <nav class="page-nav">
+        <a href="index.html" class="prev">&laquo; 概要</a>
+        <a href="settings-metabox.html" class="next">設定・メタボックス &raquo;</a>
+    </nav>
+
+    <footer class="manual-footer">
+        <p>作者: <a href="https://www.tsuyoshikashiwazaki.jp/profile/" target="_blank" rel="noopener">柏崎剛（Tsuyoshi Kashiwazaki）</a></p>
+        <p>プラグイン: Kashiwazaki SEO Rich Preview Manager v2.0.0</p>
+    </footer>
+</main>
+
+<div class="lightbox"></div>
+<script src="js/manual.js?v=1"></script>
+</body>
+</html>

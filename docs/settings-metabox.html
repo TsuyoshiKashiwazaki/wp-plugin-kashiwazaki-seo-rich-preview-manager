@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>設定・メタボックス - Kashiwazaki SEO Rich Preview Manager マニュアル</title>
+    <link rel="stylesheet" href="css/style.css?v=1">
+</head>
+<body>
+<button class="hamburger-btn" aria-label="メニュー">&#9776;</button>
+
+<nav class="sidebar">
+    <div class="sidebar-header">
+        <h2 style="color:#fff;">Rich Preview Manager</h2>
+        <span class="version">v2.0.0</span>
+        <img src="images/main-visual.png" alt="" style="width:100%;border-radius:4px;margin-top:8px;">
+    </div>
+    <ul>
+        <li><a href="index.html">概要</a></li>
+        <li><a href="setup.html">インストール・初期設定</a></li>
+        <li class="active"><a href="settings-metabox.html">設定・メタボックス</a></li>
+        <li><a href="troubleshooting.html">トラブルシューティング</a></li>
+    </ul>
+</nav>
+
+<main class="content">
+    <h1>設定・メタボックス マニュアル</h1>
+    <p class="lead">Kashiwazaki SEO Rich Preview Manager のグローバル設定、投稿別メタボックス、画像優先順位、出力形式、フィルター一覧を解説します。</p>
+
+    <h2>グローバル設定（ksrpm_options）</h2>
+
+    <p>設定画面で管理するすべてのオプション項目です。これらは <code>wp_options</code> テーブルに <code>ksrpm_options</code> キーで保存されます。</p>
+
+    <figure class="screenshot">
+        <img src="images/screenshots/01-settings-page.png" alt="設定画面" class="lightbox-trigger">
+        <figcaption>グローバル設定画面の全体像</figcaption>
+    </figure>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width:35%;">設定項目</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>enable_ogp</td>
+                <td>OGPメタタグの出力を有効化（true/false）</td>
+            </tr>
+            <tr>
+                <td>enable_twitter_card</td>
+                <td>Twitter Card メタタグの出力を有効化（true/false）</td>
+            </tr>
+            <tr>
+                <td>enable_meta_thumbnail</td>
+                <td>Meta Thumbnail タグの出力を有効化（true/false）</td>
+            </tr>
+            <tr>
+                <td>enable_pagemap</td>
+                <td>PageMap DataObject の出力を有効化（true/false）</td>
+            </tr>
+            <tr>
+                <td>enable_robots_max_image</td>
+                <td>robots max-image-preview メタタグの出力を有効化（true/false）</td>
+            </tr>
+            <tr>
+                <td>site_name</td>
+                <td>og:site_name に使用するサイト名。空欄時はWordPressのサイトタイトルを使用</td>
+            </tr>
+            <tr>
+                <td>default_og_type</td>
+                <td>投稿のデフォルト og:type（article、blog など）。トップページは自動的に website</td>
+            </tr>
+            <tr>
+                <td>default_twitter_card</td>
+                <td>デフォルトの Twitter Card タイプ（summary または summary_large_image）</td>
+            </tr>
+            <tr>
+                <td>default_image</td>
+                <td>フォールバック用デフォルト画像のURL</td>
+            </tr>
+            <tr>
+                <td>fb_app_id</td>
+                <td>Facebook App ID（fb:app_id メタタグに使用）</td>
+            </tr>
+            <tr>
+                <td>twitter_username</td>
+                <td>Twitterユーザー名（@付き、twitter:site に使用）</td>
+            </tr>
+            <tr>
+                <td>post_types</td>
+                <td>メタタグを出力する投稿タイプの配列（例: post, page）</td>
+            </tr>
+            <tr>
+                <td>enable_duplicate_checker</td>
+                <td>重複メタタグ検出チェッカーの有効化（true/false）</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>投稿別メタボックス</h2>
+
+    <p>投稿編集画面に表示される「Rich Preview 設定」メタボックスから、投稿ごとにリッチプレビュー情報をカスタマイズできます。ここで設定した値は、グローバル設定よりも優先されます。データは <code>post_meta</code> に <code>_ksrpm_*</code> プレフィックスで保存されます。</p>
+
+    <figure class="screenshot">
+        <img src="images/screenshots/02-metabox.png" alt="メタボックス" class="lightbox-trigger">
+        <figcaption>投稿編集画面のメタボックス</figcaption>
+    </figure>
+
+    <h3>メタボックスの設定項目</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width:35%;">項目</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>OG Title</td>
+                <td>og:title、twitter:title に使用されるタイトル。空欄の場合は投稿タイトルが使用されます。</td>
+            </tr>
+            <tr>
+                <td>OG Description</td>
+                <td>og:description、twitter:description に使用される説明文。空欄の場合は投稿の抜粋が使用されます。</td>
+            </tr>
+            <tr>
+                <td>OG Image</td>
+                <td>og:image、twitter:image、Meta Thumbnail、PageMap に使用される画像URL。メディアライブラリから選択可能です。</td>
+            </tr>
+            <tr>
+                <td>OG Type</td>
+                <td>og:type の値（article、blog、product など）。空欄の場合はグローバル設定のデフォルト値が使用されます。</td>
+            </tr>
+            <tr>
+                <td>Twitter Card Type</td>
+                <td>twitter:card の値（summary または summary_large_image）。空欄の場合はグローバル設定のデフォルト値が使用されます。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="callout callout-tip">
+        <div class="callout-title">ヒント</div>
+        <p>SNSでのシェア時に最適な表示にするため、OG Titleは25〜35文字程度、OG Descriptionは80〜120文字程度を目安に設定してください。</p>
+    </div>
+
+    <h2>画像優先順位チェーン</h2>
+
+    <p>リッチプレビューに使用される画像は、以下の優先順位で決定されます。すべての出力タイプ（OGP、Twitter Card、Meta Thumbnail、PageMap）で共通のロジックです。</p>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <div class="step-body">
+            <p>カスタムOGP画像（メタボックスで設定した <code>_ksrpm_og_image</code>）</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <div class="step-body">
+            <p>投稿のアイキャッチ画像（Featured Image）</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">3</span>
+        <div class="step-body">
+            <p>グローバル設定のデフォルト画像（ksrpm_options の default_image）</p>
+        </div>
+    </div>
+
+    <div class="callout callout-note">
+        <div class="callout-title">補足</div>
+        <p>デフォルト画像が未設定で、投稿にアイキャッチ画像もない場合、画像関連のメタタグは出力されません。SNSでのシェア表示を確実にするため、デフォルト画像の設定を推奨します。</p>
+    </div>
+
+    <figure class="infographic">
+        <img src="images/infographics/overview-flow.png" alt="画像優先順位と出力フロー">
+        <figcaption>画像選定から各出力タイプへの処理フロー</figcaption>
+    </figure>
+
+    <h2>出力形式の例</h2>
+
+    <p>本プラグインは <code>wp_head</code> アクションで以下のメタタグを出力します。</p>
+
+    <h3>OGPタグ</h3>
+
+    <pre><code>&lt;meta property="og:title" content="記事タイトル"&gt;
+&lt;meta property="og:description" content="記事の説明文"&gt;
+&lt;meta property="og:image" content="https://example.com/image.jpg"&gt;
+&lt;meta property="og:url" content="https://example.com/post/"&gt;
+&lt;meta property="og:type" content="article"&gt;
+&lt;meta property="og:site_name" content="サイト名"&gt;
+&lt;meta property="fb:app_id" content="123456789"&gt;</code></pre>
+
+    <h3>Twitter Cardタグ</h3>
+
+    <pre><code>&lt;meta name="twitter:card" content="summary_large_image"&gt;
+&lt;meta name="twitter:title" content="記事タイトル"&gt;
+&lt;meta name="twitter:description" content="記事の説明文"&gt;
+&lt;meta name="twitter:image" content="https://example.com/image.jpg"&gt;
+&lt;meta name="twitter:site" content="@example"&gt;</code></pre>
+
+    <h3>Meta Thumbnail</h3>
+
+    <pre><code>&lt;meta name="thumbnail" content="https://example.com/image.jpg"&gt;</code></pre>
+
+    <h3>PageMap</h3>
+
+    <pre><code>&lt;!--
+&lt;PageMap&gt;
+  &lt;DataObject type="thumbnail"&gt;
+    &lt;Attribute name="src" value="https://example.com/image.jpg"&gt;
+    &lt;Attribute name="width" value="1200"&gt;
+    &lt;Attribute name="height" value="630"&gt;
+  &lt;/DataObject&gt;
+&lt;/PageMap&gt;
+--&gt;</code></pre>
+
+    <h3>robots max-image-preview</h3>
+
+    <pre><code>&lt;meta name="robots" content="max-image-preview:large"&gt;</code></pre>
+
+    <h2>重複メタタグ検出チェッカー</h2>
+
+    <p>設定画面で「重複チェッカー」を有効化すると、他のプラグインやテーマが出力するOGP/Twitter Cardメタタグとの重複を検出し、管理画面に警告を表示します。</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width:35%;">検出対象</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>OGPタグの重複</td>
+                <td>og:title、og:description、og:image など同一プロパティの複数出力を検出</td>
+            </tr>
+            <tr>
+                <td>Twitter Cardタグの重複</td>
+                <td>twitter:card、twitter:title など同一nameの複数出力を検出</td>
+            </tr>
+            <tr>
+                <td>robotsタグの重複</td>
+                <td>max-image-preview 指定が複数存在する場合を検出</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="callout callout-warning">
+        <div class="callout-title">注意</div>
+        <p>他のSEOプラグイン（Yoast SEO、All in One SEO Pack など）がOGPタグを出力している場合、重複が検出されます。他プラグインのOGP出力機能を無効にしてください。</p>
+    </div>
+
+    <h2>フィルターリファレンス（主要10件）</h2>
+
+    <p>本プラグインは34種類以上のカスタムフィルターを提供しています。以下はよく使用される主要なフィルターです。</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width:35%;">フィルター名</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>ksrpm_og_title</td>
+                <td>og:title の値をフィルタリング</td>
+            </tr>
+            <tr>
+                <td>ksrpm_og_description</td>
+                <td>og:description の値をフィルタリング</td>
+            </tr>
+            <tr>
+                <td>ksrpm_og_image</td>
+                <td>og:image の値をフィルタリング</td>
+            </tr>
+            <tr>
+                <td>ksrpm_og_url</td>
+                <td>og:url の値をフィルタリング</td>
+            </tr>
+            <tr>
+                <td>ksrpm_og_type</td>
+                <td>og:type の値をフィルタリング</td>
+            </tr>
+            <tr>
+                <td>ksrpm_twitter_card</td>
+                <td>twitter:card の値をフィルタリング</td>
+            </tr>
+            <tr>
+                <td>ksrpm_twitter_image</td>
+                <td>twitter:image の値をフィルタリング</td>
+            </tr>
+            <tr>
+                <td>ksrpm_meta_thumbnail</td>
+                <td>Meta Thumbnail の画像URLをフィルタリング</td>
+            </tr>
+            <tr>
+                <td>ksrpm_pagemap_data</td>
+                <td>PageMap DataObject の属性配列をフィルタリング</td>
+            </tr>
+            <tr>
+                <td>ksrpm_meta_tags</td>
+                <td>出力されるすべてのメタタグの配列をフィルタリング</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>フィルターの使用例</h3>
+
+    <pre><code>// og:title にサイト名を追加する例
+add_filter('ksrpm_og_title', function($title) {
+    return $title . ' | ' . get_bloginfo('name');
+});
+
+// 特定のカテゴリでOGP画像を固定する例
+add_filter('ksrpm_og_image', function($image) {
+    if (has_category('news')) {
+        return 'https://example.com/news-ogp.jpg';
+    }
+    return $image;
+});
+
+// PageMapデータをカスタマイズする例
+add_filter('ksrpm_pagemap_data', function($data) {
+    $data['alt'] = get_the_title();
+    return $data;
+});</code></pre>
+
+    <div class="callout callout-warning">
+        <div class="callout-title">注意</div>
+        <p>フィルターで返す値は必ずサニタイズ済みの文字列にしてください。URLの場合は <code>esc_url()</code>、テキストの場合は <code>esc_attr()</code> を使用することを推奨します。</p>
+    </div>
+
+    <nav class="page-nav">
+        <a href="setup.html" class="prev">&laquo; インストール・初期設定</a>
+        <a href="troubleshooting.html" class="next">トラブルシューティング &raquo;</a>
+    </nav>
+
+    <footer class="manual-footer">
+        <p>作者: <a href="https://www.tsuyoshikashiwazaki.jp/profile/" target="_blank" rel="noopener">柏崎剛（Tsuyoshi Kashiwazaki）</a></p>
+        <p>プラグイン: Kashiwazaki SEO Rich Preview Manager v2.0.0</p>
+    </footer>
+</main>
+
+<div class="lightbox"></div>
+<script src="js/manual.js?v=1"></script>
+</body>
+</html>
