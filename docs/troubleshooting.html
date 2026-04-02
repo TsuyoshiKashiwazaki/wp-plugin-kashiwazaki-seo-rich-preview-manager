@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>トラブルシューティング - Kashiwazaki SEO Rich Preview Manager マニュアル</title>
+    <link rel="stylesheet" href="css/style.css?v=1">
+</head>
+<body>
+<button class="hamburger-btn" aria-label="メニュー">&#9776;</button>
+
+<nav class="sidebar">
+    <div class="sidebar-header">
+        <h2 style="color:#fff;">Kashiwazaki SEO Rich Preview Manager</h2>
+        <span class="version">v2.0.0</span>
+        <img src="images/main-visual.png" alt="" style="width:100%;border-radius:4px;margin-top:8px;">
+    </div>
+    <ul>
+        <li><a href="index.html">概要</a></li>
+        <li><a href="setup.html">インストール・初期設定</a></li>
+        <li><a href="settings-metabox.html">設定・メタボックス</a></li>
+        <li class="active"><a href="troubleshooting.html">トラブルシューティング</a></li>
+    </ul>
+</nav>
+
+<main class="content">
+    <h1>トラブルシューティング マニュアル</h1>
+    <p class="lead">Kashiwazaki SEO Rich Preview Manager の使用中に発生しうる問題と対処法、重複チェッカーの使い方、アーキテクチャについて解説します。</p>
+
+    <h2>よくある問題と対処法</h2>
+
+    <h3>OGPタグが出力されない</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="width:35%;">考えられる原因</th>
+                <th>対処法</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>プラグインが有効化されていない</td>
+                <td>管理画面の「プラグイン」一覧で、本プラグインが有効になっていることを確認してください。</td>
+            </tr>
+            <tr>
+                <td>出力タイプが無効になっている</td>
+                <td>設定画面で「OGP」の出力タイプが有効になっていることを確認してください。他の出力タイプも同様です。</td>
+            </tr>
+            <tr>
+                <td>テーマが <code>wp_head()</code> を呼び出していない</td>
+                <td>テーマの <code>header.php</code> に <code>&lt;?php wp_head(); ?&gt;</code> が記述されていることを確認してください。</td>
+            </tr>
+            <tr>
+                <td>対象投稿タイプに含まれていない</td>
+                <td>設定画面の「投稿タイプ」で、該当の投稿タイプが選択されていることを確認してください。</td>
+            </tr>
+            <tr>
+                <td>キャッシュプラグインが古い出力を表示している</td>
+                <td>キャッシュプラグインのキャッシュをクリアしてから再確認してください。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>SNSシェア時に意図した画像が表示されない</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="width:35%;">考えられる原因</th>
+                <th>対処法</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>画像優先順位を誤解している</td>
+                <td>画像はカスタムOGP画像 → アイキャッチ → デフォルト画像の順で選定されます。意図した画像がメタボックスで設定されているか確認してください。</td>
+            </tr>
+            <tr>
+                <td>デフォルト画像が未設定</td>
+                <td>設定画面でデフォルト画像を設定してください。アイキャッチ画像がない投稿のフォールバックとして使用されます。</td>
+            </tr>
+            <tr>
+                <td>画像サイズが小さすぎる</td>
+                <td>OGP画像の推奨サイズは1200 x 630px以上です。小さい画像は一部のSNSで表示されない場合があります。</td>
+            </tr>
+            <tr>
+                <td>SNS側のキャッシュが古い</td>
+                <td>Facebookは <a href="https://developers.facebook.com/tools/debug/" target="_blank" rel="noopener">シェアデバッガー</a> でキャッシュをクリアできます。Xは <a href="https://cards-dev.twitter.com/validator" target="_blank" rel="noopener">Card Validator</a> で確認してください。</td>
+            </tr>
+            <tr>
+                <td>画像URLがHTTPSでない</td>
+                <td>OGP画像はHTTPS URLであることが推奨されます。サイト全体のSSL対応を確認してください。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>メタタグが重複して出力される</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="width:35%;">考えられる原因</th>
+                <th>対処法</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>他のSEOプラグインがOGPタグを出力している</td>
+                <td>Yoast SEO、All in One SEO Pack などのOGP出力機能を無効にしてください。重複チェッカーで検出できます。</td>
+            </tr>
+            <tr>
+                <td>テーマがOGPタグを出力している</td>
+                <td>テーマの <code>functions.php</code> や <code>header.php</code> でOGPタグの直接出力がないか確認してください。</td>
+            </tr>
+            <tr>
+                <td>旧プラグインが残っている</td>
+                <td>Kashiwazaki SEO OGP Manager（v1.x）が有効なまま本プラグインを使用すると重複します。旧プラグインを無効化してください。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>旧プラグインからの移行がうまくいかない</h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="width:35%;">考えられる原因</th>
+                <th>対処法</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>旧プラグインのデータが存在しない</td>
+                <td>旧プラグイン（kashiwazaki-seo-ogp-manager）が一度も使用されていない場合、移行対象のデータがありません。</td>
+            </tr>
+            <tr>
+                <td>旧プラグインを先に削除してしまった</td>
+                <td>旧プラグインを削除するとデータ（ksom_options）も削除される場合があります。バックアップからデータを復元してください。</td>
+            </tr>
+            <tr>
+                <td>移行後に設定が反映されない</td>
+                <td>移行後、設定画面で各出力タイプが有効になっていることを確認してください。v2.0.0 で追加された出力タイプ（Meta Thumbnail、PageMap）は手動で有効化が必要です。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="callout callout-tip">
+        <div class="callout-title">ヒント</div>
+        <p>メタタグの出力内容を確認するには、ページのソースコード（Ctrl+U）を表示し、<code>&lt;head&gt;</code> 内の <code>og:</code>、<code>twitter:</code>、<code>thumbnail</code>、<code>PageMap</code> で検索してください。</p>
+    </div>
+
+    <h2>重複メタタグ検出チェッカーの使い方</h2>
+
+    <p>重複チェッカーは、サイトのフロントエンドHTMLを解析し、OGP/Twitter Card関連のメタタグが複数出力されていないかを検出します。</p>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <div class="step-body">
+            <p>設定画面で「重複チェッカー」を有効化します。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <div class="step-body">
+            <p>管理画面のダッシュボードまたは設定画面に重複検出結果が表示されます。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">3</span>
+        <div class="step-body">
+            <p>重複が検出された場合、原因となるプラグインやテーマのOGP出力機能を無効にしてください。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">4</span>
+        <div class="step-body">
+            <p>対処後、再度チェッカーを実行して重複が解消されたことを確認します。</p>
+        </div>
+    </div>
+
+    <div class="callout callout-note">
+        <div class="callout-title">補足</div>
+        <p>重複チェッカーはサイトの表示速度に影響を与えません。管理画面でのみ動作し、フロントエンドには一切影響しません。</p>
+    </div>
+
+    <h2>動作要件</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width:35%;">項目</th>
+                <th>要件</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>WordPress</td>
+                <td>6.0 以上</td>
+            </tr>
+            <tr>
+                <td>PHP</td>
+                <td>7.4 以上</td>
+            </tr>
+            <tr>
+                <td>ライセンス</td>
+                <td>GPL-2.0+</td>
+            </tr>
+            <tr>
+                <td>対応ブラウザ</td>
+                <td>Chrome、Firefox、Safari、Edge（最新版）</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>技術仕様</h2>
+
+    <ul>
+        <li>データ保存: wp_options (ksrpm_options), post_meta (_ksrpm_*)</li>
+        <li>カスタムテーブル: なし</li>
+        <li>外部通信: なし</li>
+        <li>Cronイベント: なし</li>
+        <li>ショートコード: なし</li>
+        <li>フロントエンドCSS/JS: なし（headメタタグのみの出力）</li>
+        <li>カスタムフィルター: 34種類以上</li>
+        <li>カスタムアクション: 17種類以上</li>
+        <li>セキュリティ: nonce検証、manage_options権限チェック、esc_attr/esc_urlサニタイズ</li>
+    </ul>
+
+    <h2>アーキテクチャ</h2>
+
+    <p>Kashiwazaki SEO Rich Preview Manager は以下の6つのクラスで構成されています。</p>
+
+    <figure class="infographic">
+        <img src="images/infographics/architecture.png" alt="アーキテクチャ図">
+        <figcaption>プラグインのアーキテクチャ構成</figcaption>
+    </figure>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width:35%;">クラス名</th>
+                <th>役割</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Main（Singleton）</td>
+                <td>プラグインのエントリーポイント。各クラスの初期化とフックの登録を管理</td>
+            </tr>
+            <tr>
+                <td>KSRPM_Admin</td>
+                <td>管理画面の設定ページ、オプション保存、重複チェッカーUI</td>
+            </tr>
+            <tr>
+                <td>KSRPM_Metabox</td>
+                <td>投稿編集画面のメタボックス表示と post_meta の保存処理</td>
+            </tr>
+            <tr>
+                <td>KSRPM_Rich_Preview_Manager</td>
+                <td>5種類の出力タイプの統合管理とwp_headへの出力制御</td>
+            </tr>
+            <tr>
+                <td>KSRPM_Meta_Tags</td>
+                <td>各メタタグ（OGP、Twitter Card、Meta Thumbnail、PageMap、robots）の生成ロジック</td>
+            </tr>
+            <tr>
+                <td>KSRPM_Image_Handler</td>
+                <td>画像優先順位チェーンの処理（カスタム画像→アイキャッチ→デフォルト画像）</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>メタタグ出力フロー</h3>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <div class="step-body">
+            <p><code>wp_head</code> アクションで KSRPM_Rich_Preview_Manager が呼び出されます。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <div class="step-body">
+            <p>KSRPM_Image_Handler が画像優先順位チェーン（カスタム画像 → アイキャッチ → デフォルト画像）に従って使用画像を決定します。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">3</span>
+        <div class="step-body">
+            <p>投稿別メタボックス設定（_ksrpm_* post_meta）を確認し、設定がある場合はその値を使用します。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">4</span>
+        <div class="step-body">
+            <p>KSRPM_Meta_Tags が有効な出力タイプごとにメタタグを生成します。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">5</span>
+        <div class="step-body">
+            <p>34種類以上のカスタムフィルターを適用し、最終的な値を決定します。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">6</span>
+        <div class="step-body">
+            <p>サニタイズされたメタタグ（OGP、Twitter Card、Meta Thumbnail、PageMap、robots）を <code>&lt;head&gt;</code> 内に出力します。</p>
+        </div>
+    </div>
+
+    <div class="callout callout-note">
+        <div class="callout-title">補足</div>
+        <p>カスタムテーブルやCronイベントは使用しないため、プラグインの削除時に <code>wp_options</code> の ksrpm_options と <code>post_meta</code> の _ksrpm_* のみが削除対象です。</p>
+    </div>
+
+    <nav class="page-nav">
+        <a href="settings-metabox.html" class="prev">&laquo; 設定・メタボックス</a>
+        <span></span>
+    </nav>
+
+    <footer class="manual-footer">
+        <p>作者: <a href="https://www.tsuyoshikashiwazaki.jp/profile/" target="_blank" rel="noopener">柏崎剛（Tsuyoshi Kashiwazaki）</a></p>
+        <p>プラグイン: Kashiwazaki SEO Rich Preview Manager v2.0.0</p>
+    </footer>
+</main>
+
+<div class="lightbox"></div>
+<script src="js/manual.js?v=1"></script>
+</body>
+</html>
